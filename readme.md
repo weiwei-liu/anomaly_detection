@@ -1,34 +1,15 @@
 # Anomaly Detection Neural Network with Attention
 
-This notebook consists of four main parts to describe the workflow of training a Recurrent Neural Network with attention layer model to classify anomaly events in a sequence based embeded software log. These four parts are Data Loading and Preprocessing, Model building, Model training, Results Analysis and Visualization.
-
-The evaluate of new test data will be presented in another notebook.
-
+This readme consists of four main parts to briefly describe the workflow of training a Recurrent Neural Network with attention layer model to classify anomaly events in a sequence based embeded software log. These four parts are Data Loading and Preprocessing, Model building, Model training, Results Analysis and Visualization. Check the python notebook for details.
 
 #### Data loading and preprocessing
 
 * Load in all 15 .csv data files, and save as pandas dataframes.
 
-
 #### Overview of the data
 
 * Groupby `class` and `event` column in the dataframe to get the occurrence count of different events under different class.
 
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -276,11 +257,15 @@ The architecture of this model is:
 
 The input is a small segment of the log file, in this case, 5 continuous events, and the target output is the next 5 continuous events following the input one. The general idea is that using this proposed NN model to train inputs and predicting the following outputs. Assuming the event sequences patterns between the clean and anomalous ones are different, then the preciting/test accuracy should be different using the same model and trained weights.
 
-Check model.py file for the details of encoder, attention, and decoder models.
+Check `model.py` file for the details of encoder, attention, and decoder models.
+
+#### Model Training
+
+Check `anomaly_detection_NN_train.ipynb` for details.
 
 #### Results
 
-The next step is to predict results using the above model and trained weights of each layer.
+The next step is to predict results using the above model and trained weights of each layer (saved in `sumitmodel_checkpoint` folder).
 
 The test inputs are processed using event sequence length `Tx = 5`, same as the trained data, while using stride `stride = 5` instead of 2.
 
@@ -304,30 +289,16 @@ Any 1000 events long sequence with  misclassification rate higher than the crite
 
 **Normal sequences**
 
-    <Figure size 432x288 with 0 Axes>
-
-
-
 ![png](output_49_1.png)
 
 
 **Abnormal sequences A**
 
-    <Figure size 432x288 with 0 Axes>
-
-
-
 ![png](output_49_21.png)
 
 **Abnormal sequences B**
 
-    <Figure size 432x288 with 0 Axes>
-
-
-
 ![png](output_49_29.png)
-
-
 
 
 #### Reference
